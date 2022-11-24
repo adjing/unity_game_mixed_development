@@ -34,21 +34,39 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             UnityComposeUI2022Theme {
-                // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    Greeting("Android 99")
+                val expanded = remember { mutableStateOf(false) }
+
+                val extraPadding = if (expanded.value) 48.dp else 0.dp
+
+                Surface(
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)
+                ) {
+                    Row(modifier = Modifier.padding(24.dp)) {
+                        Column(modifier = Modifier
+                            .weight(1f)
+                            .padding(bottom = extraPadding)
+                        ) {
+                            Text(text = "Hello, ")
+                            Text(text = "Game")
+                        }
+                        ElevatedButton(
+                            onClick = {
+                                var message="abc";
+                                val intent = Intent(m_content, UnityPlayerActivity::class.java).apply {
+                                    putExtra(EXTRA_MESSAGE, message)
+                                }
+                                startActivity(intent)
+                                //
+                                expanded.value = !expanded.value
+                            }
+                        ) {
+                            Text(if (expanded.value) "Show less" else "Show more")
+                        }
+                    }
                 }
             }
-
-            //
-            m_content = this;
-//            var message="abc";
-//            val intent = Intent(this, UnityPlayerActivity::class.java).apply {
-//                putExtra(EXTRA_MESSAGE, message)
-//            }
-//            startActivity(intent)
-
-        }
+        }//setContent end
     }
 
     fun OpenUnity(){
@@ -66,45 +84,45 @@ class MainActivity : ComponentActivity() {
 
     }
 }
-
-@Composable
-private fun Greeting(name: String) {
-
-    val expanded = remember { mutableStateOf(false) }
-
-    val extraPadding = if (expanded.value) 48.dp else 0.dp
-
-    Surface(
-        color = MaterialTheme.colorScheme.primary,
-        modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)
-    ) {
-        Row(modifier = Modifier.padding(24.dp)) {
-            Column(modifier = Modifier
-                .weight(1f)
-                .padding(bottom = extraPadding)
-            ) {
-                Text(text = "Hello, ")
-                Text(text = name)
-            }
-            ElevatedButton(
-                onClick = {
-                    //open unity
-                    var bo= MainActivity();
-                    bo.OpenUnity()
-                    expanded.value = !expanded.value
-                }
-            ) {
-                Text(if (expanded.value) "Show less" else "Show more")
-            }
-        }
-    }
-}
+//
+//@Composable
+//private fun Greeting(name: String) {
+//
+//    val expanded = remember { mutableStateOf(false) }
+//
+//    val extraPadding = if (expanded.value) 48.dp else 0.dp
+//
+//    Surface(
+//        color = MaterialTheme.colorScheme.primary,
+//        modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)
+//    ) {
+//        Row(modifier = Modifier.padding(24.dp)) {
+//            Column(modifier = Modifier
+//                .weight(1f)
+//                .padding(bottom = extraPadding)
+//            ) {
+//                Text(text = "Hello, ")
+//                Text(text = name)
+//            }
+//            ElevatedButton(
+//                onClick = {
+//                    //open unity
+//                    var bo= MainActivity();
+//                    bo.OpenUnity()
+//                    expanded.value = !expanded.value
+//                }
+//            ) {
+//                Text(if (expanded.value) "Show less" else "Show more")
+//            }
+//        }
+//    }
+//}
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     UnityComposeUI2022Theme {
-        Greeting("Android")
+
     }
 }
 
