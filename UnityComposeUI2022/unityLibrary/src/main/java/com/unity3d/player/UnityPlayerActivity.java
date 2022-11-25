@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -161,4 +162,30 @@ public class UnityPlayerActivity extends Activity implements IUnityPlayerLifecyc
     @Override public boolean onKeyDown(int keyCode, KeyEvent event)   { return mUnityPlayer.injectEvent(event); }
     @Override public boolean onTouchEvent(MotionEvent event)          { return mUnityPlayer.injectEvent(event); }
     /*API12*/ public boolean onGenericMotionEvent(MotionEvent event)  { return mUnityPlayer.injectEvent(event); }
+
+    //Untiy and Android
+
+    //2 接收来自Unity的消息
+    public  String OnReceiveCMD_UnityToAndroid(String cmd_guid,String parameter_txt){
+
+        //        Log.d(TAG,"UnityToAndroid cmd_guid="+cmd_guid);
+        OpenUI(parameter_txt);
+        //        Log.d(TAG,"On_ShowAds parameter_txt="+parameter_txt);
+        //
+        return  cmd_guid;
+    }
+
+    private void OpenUI(String p_json){
+//        startActivity(
+//                FlutterActivity
+//                        .withCachedEngine(flutter_engine_id)
+//                        .build(this)
+//        );
+//
+//        UnityInvokeFlutterMethod(p_json);
+        Log.d("unitylog","启动Flutter UI");
+        //Unity game exit,再次打开等于是重新进Unity 有开场动画
+        System.exit(0);
+        overridePendingTransition(0,0);
+    }
 }
