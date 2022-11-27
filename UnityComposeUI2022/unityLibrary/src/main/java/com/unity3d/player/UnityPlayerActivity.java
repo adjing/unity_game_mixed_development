@@ -3,18 +3,18 @@ package com.unity3d.player;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
-import android.os.Process;
+
+import com.game.datatransfer.DataTransferStation;
 
 public class UnityPlayerActivity extends Activity implements IUnityPlayerLifecycleEvents
 {
+    private int m_count = 0;
+    //
     protected UnityPlayer mUnityPlayer; // don't change the name of this variable; referenced from native code
 
     // Override this in your custom UnityPlayerActivity to tweak the command line arguments passed to the Unity Android Player
@@ -41,6 +41,7 @@ public class UnityPlayerActivity extends Activity implements IUnityPlayerLifecyc
         mUnityPlayer = new UnityPlayer(this, this);
         setContentView(mUnityPlayer);
         mUnityPlayer.requestFocus();
+        //
     }
 
     // When Unity player unloaded move task to background
@@ -183,7 +184,12 @@ public class UnityPlayerActivity extends Activity implements IUnityPlayerLifecyc
 //        );
 //
 //        UnityInvokeFlutterMethod(p_json);
-        Log.d("unitylog","启动Flutter UI");
+
+        m_count = m_count + 1;
+        DataTransferStation bo = new DataTransferStation();
+        String txt = bo.GetInfo("unity"+m_count);
+
+        Log.d("unitylog","启动Flutter UI "+ txt);
         //Unity game exit,再次打开等于是重新进Unity 有开场动画
         System.exit(0);
         overridePendingTransition(0,0);

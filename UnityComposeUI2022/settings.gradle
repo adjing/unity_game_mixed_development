@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 rootProject.name = "UnityComposeUI2022"
 include ':app'
 include ':unityLibrary'
+include ':lib_data_transfer'
