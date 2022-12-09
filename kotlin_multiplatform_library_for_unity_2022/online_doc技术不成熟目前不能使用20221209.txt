@@ -1,0 +1,27 @@
+https://book.kotlincn.net/text/multiplatform-library.html
+
+技术不成熟目前不能使用20221209
+
+KMM 全称：Kotlin Multiplatform Mobile 只共享代码，不共享UI，没啥卵用。
+
+体积：
+
+使用 Flutter 需要在 App 包内部增加两个引擎：
+
+一个是 Flutter 的渲染引擎，该引擎使用 C/C++ 开发，直接调用 OpenGL/Skia 的 API 进行绘制，从而摆脱 iOS 的 UIKit 以及 Android 的 View 组件直接渲染成需要的样式，保证样式高度统一
+
+另一个是 Dart 语言的 Runtime，用于解析并运行 Dart 语言编译的 Bundle
+
+这两者减小了开发者的适配成本，但增大了 APP 的包体积（其他类似的跨平台框架，如：React Native 等，也会内置 JavaScript Core 或 V8 引擎）
+
+KMM 针对不同平台生成不同的二进制依赖包，根本上还是调用了 Android、iOS 的原生 API，并不会内置引擎这类文件，对 App 的体积影响相对较小，同时也保证了性能
+
+风险点：
+
+众所周知，App Store 对 App 的审核一直都是极为严格的，JSPatch、React Native 等框架的使用都有过审核被拒的情况，从某种角度来看，Flutter 与 Swift UI 在一定程度上目标相似，且绕开 iOS SDK 的 UIKit，Apple 虽没有明确对 Flutter 表态，但按照 Apple 的风格，Flutter 在未来仍存在一定的被拒风险
+KMM 会将 Kotlin 代码编译为标准的 Apple Framework，在不引入其他第三方库的情况下，不存在调用高风险 API 的情况，故对 App Store 审核的影响较小，风险较低
+适用场景：
+
+由于 Flutter 采用类似 3D 游戏的渲染理念，统一了界面渲染引擎，利用 Dart 可以高度保证双端样式和交互逻辑一致，且几乎不存在界面适配问题，完全抹平了 TextView 和 UILabel 这类控件之间的差异，所以 Flutter 适合于界面构建
+
+而 KMM 并不适合 UI，双端的组件，生命周期、API 差异都比较大，KMM 在技术上可以实现功能，但相当于写了两份代码，失去了意义

@@ -1,0 +1,11 @@
+Jetpack Compose 是推荐用于构建原生 Android 界面
+
+https://www.answertopia.com/jetpack-compose/a-jetpack-compose-viewmodel-tutorial/
+
+
+Game Common UI
+DB
+
+里面嵌入Unity Game
+
+E:\App_Data\fork\unity_game_mixed_development\compose_game_db_2023
