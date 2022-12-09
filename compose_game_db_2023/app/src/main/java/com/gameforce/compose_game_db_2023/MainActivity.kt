@@ -27,12 +27,14 @@ class MainActivity : ComponentActivity() {
         setContentView(R.layout.activity_xml_compose)
         val mLlContainer = findViewById<ComposeView>(R.id.mComposeView)
         mLlContainer.setContent {
-            var message="abc";
-            val intent = Intent(this, UnityPlayerActivity::class.java).apply {
-                putExtra(EXTRA_MESSAGE, message)
-            }
-            startActivity(intent)
+                        Compose_game_db_2023Theme {
+                            var message = "abc";
+                            val intent = Intent(this, UnityPlayerActivity::class.java).apply {
+                                putExtra(EXTRA_MESSAGE, message)
+                            }
+                            startActivity(intent)
 //            ComposeContent()
+                        }
         }
 
 //        setContent {
