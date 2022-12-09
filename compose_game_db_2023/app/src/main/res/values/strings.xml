@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">compose_game_db_2023</string>
+    <string name="game_view_content_description">Game view</string>
 </resources>

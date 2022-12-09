@@ -1,6 +1,8 @@
 package com.gameforce.compose_game_db_2023
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.AlarmClock.EXTRA_MESSAGE
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,6 +18,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gameforce.compose_game_db_2023.ui.theme.Compose_game_db_2023Theme
+import com.unity3d.player.UnityPlayerActivity
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +27,12 @@ class MainActivity : ComponentActivity() {
         setContentView(R.layout.activity_xml_compose)
         val mLlContainer = findViewById<ComposeView>(R.id.mComposeView)
         mLlContainer.setContent {
-            ComposeContent()
+            var message="abc";
+            val intent = Intent(this, UnityPlayerActivity::class.java).apply {
+                putExtra(EXTRA_MESSAGE, message)
+            }
+            startActivity(intent)
+//            ComposeContent()
         }
 
 //        setContent {
